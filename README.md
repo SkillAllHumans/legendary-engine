@@ -3,4 +3,4 @@ We're not good at naming things.
 
 This is a repo for a few coding buddies to have some fun.
 
-[Magazine Quiz](magazine-quiz.html)
+[Magazine Quiz](https://skillallhumans.github.io/legendary-engine/magazine-quiz.html)
