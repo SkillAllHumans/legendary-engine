@@ -10,7 +10,45 @@
   </script>
 
   <style>
+    body,
+    html{
+      box-sizing: border-box;
+    }
+    header{
+      height: 20vh;
+    }
+    label{
+      color: #5a5858;
+      cursor: pointer;
+    }
+    label:hover,
+    input[type="radio"]:checked + label {
+      color: #000;
+    }
     .center{
+      text-align: center;
+    }
+    .main{
+      background-color: #f3dfe2;
+      border: 10px solid #ffc0cb;
+      height: 50vh;
+      min-width: 100%;
+    }
+    .question,
+    .answers{
+      margin: 1vh 0;
+    }
+    .question{
+      min-width: 95vw;
+      text-align: center;
+    }
+    .answers{
+      padding: 0 0 0 15vw;
+      width: 80vw;
+    }
+    .buttons{
+      height: 10vh;
+      padding: 2vh 2vw;
       text-align: center;
     }
   </style>
@@ -18,8 +56,131 @@
 </head>
 <body>
 
-  <h1 class="center">Magazine quiz!</h1>
-  <p class="center">What's your dating profile?</p>
+  <header> 
+    <h1 class="center">Magazine quiz!</h1>
+    <p class="center">What's your dating profile?</p>
+  </header>
 
+  <div class="main">
+    <h2 class="question"></h2>
+    <div class="answers">
+
+      <h3>
+        <input id="a1" type="radio" value="1" name="answers">
+        <label for="a1" id="a1label"></label>
+      </h3>
+      <h3>
+        <input id="a2" type="radio" value="2" name="answers">
+        <label for="a2" id="a2label"></label>
+      </h3>
+      <h3>
+        <input id="a3" type="radio" value="3" name="answers">
+        <label for="a3" id="a3label"></label>
+      </h3>
+      <h3>
+        <input id="a4" type="radio" value="4" name="answers">
+        <label for="a4" id="a4label"></label>
+      </h3>
+
+    </div><!-- end answers -->
+
+    <div class="buttons">
+      <button class="next">Next Question</button>      
+    </div>
+  </div><!-- end main -->
+
+
+  <script>
+
+    //act on page load
+    document.addEventListener("DOMContentLoaded", function() {
+
+      //make vars
+      let questions = [
+        "QuestionA",
+        "QuestionB",
+        "QuestionC",
+        "QuestionD",
+        "QuestionE",
+        "QuestionF",
+        "QuestionG",
+        "QuestionH",
+        "QuestionI",
+        "QuestionJ"
+      ];
+      let answers = [
+        ["AnswerA", "AnswerB", "AnswerC", "AnswerD"],
+        ["AnswerC", "AnswerD", "AnswerA", "AnswerB"],
+        ["AnswerD", "AnswerC", "AnswerB", "AnswerA"],
+        ["AnswerA", "AnswerB", "AnswerC", "AnswerD"],
+        ["AnswerC", "AnswerD", "AnswerA", "AnswerB"],
+        ["AnswerD", "AnswerC", "AnswerB", "AnswerA"],
+        ["AnswerA", "AnswerB", "AnswerC", "AnswerD"],
+        ["AnswerC", "AnswerD", "AnswerA", "AnswerB"],
+        ["AnswerD", "AnswerC", "AnswerB", "AnswerA"],
+        ["AnswerA", "AnswerB", "AnswerC", "AnswerD"]
+      ];
+      let userScore = 0;
+
+      //functions
+        function serveQuestion(){
+          //get from arrays
+          chosenQuestion = questions.pop();
+          chosenAnswers = answers.pop();
+
+          //put on page
+          $(".question").text(chosenQuestion);
+          $("#a1label").text(chosenAnswers[0]);
+          $("#a2label").text(chosenAnswers[1]);
+          $("#a3label").text(chosenAnswers[2]);
+          $("#a4label").text(chosenAnswers[3]);
+        }//end serveQuestion
+
+        function evaluateAnswer(){
+          a = $('input[name=answers]:checked').val();
+          userScore += parseInt(a);
+        }//end evaluateAnswer
+
+        function returnUserResults(){
+          //get results based on score
+          userScoreNum = parseInt(userScore);
+          if (userScoreNum > 30){
+            resultText = "Your score of " + userScoreNum + " means that you should invest in a pet.";
+          } else if ( (userScoreNum <=30) && (userScoreNum > 20) ){
+            resultText = "Your score of " + userScoreNum + " means that you should invest in a pet.";
+          } else if ((userScoreNum <=20) && (userScoreNum > 10)){
+            resultText = "Your score of " + userScoreNum + " means that you should invest in a pet.";
+          } else {
+            resultText = "Your score of " + userScoreNum + " means that you should invest in a pet.";
+          }
+          //serve results
+          $(".main").html("<h2 class='center'>"+resultText+"</h2><br/><p class='center'><button onClick='location.reload();'>Play again.</button></p>");
+        }//end returnUserResults
+
+      //Event listeners
+      $(".next").on("click", function(){
+        if (questions.length > 0) {
+          //eval
+          evaluateAnswer();
+          //deselect everything, then select first radio
+          $("input[type='radio']").prop("checked", false);
+          $("input[type='radio']:first").prop("checked", true);
+          //keep going with quiz
+          serveQuestion();
+        } else {
+          //wrap it up
+          evaluateAnswer();
+          $(".next").text("Get your results!");
+          returnUserResults();
+        }
+      });
+
+      //fire on load
+      $("input[type='radio']:first").prop("checked", true);
+      serveQuestion();
+
+    });// end document.addEventListener("DOMContentLoaded", function()
+
+  </script>
 </body>
 </html>
