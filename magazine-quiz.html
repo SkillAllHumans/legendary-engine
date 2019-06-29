@@ -55,6 +55,10 @@
       background-color: #6699ff;
       color: #ffffff;
     }
+    .again{
+      background-color: #ffffff;
+      color: #6699ff;
+    }
   </style>
 
 </head>
@@ -158,7 +162,7 @@
             resultText = "Your score of " + userScoreNum + " means that you should invest in a pet.";
           }
           //serve results
-          $(".main").html("<h2 class='center'>"+resultText+"</h2><br/><p class='center'><button onClick='location.reload();'>Play again.</button></p>");
+          $(".main").html("<h2 class='center'>"+resultText+"</h2><br/><p class='center'><button class='again' onClick='location.reload();'>Play again.</button></p>");
         }//end returnUserResults
 
       //Event listeners
