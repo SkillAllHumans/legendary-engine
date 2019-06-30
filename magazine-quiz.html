@@ -13,6 +13,7 @@
     body,
     html{
       box-sizing: border-box;
+      margin: 0 auto;
     }
     header{
       height: 20vh;
@@ -25,6 +26,14 @@
     input[type="radio"]:checked + label {
       color: #000;
     }
+    button{
+      display: block;
+      height: 10vh;
+      margin: 0 auto;
+      padding: 2vh 2vw;
+      text-align: center;
+    }
+    
     .center{
       text-align: center;
     }
@@ -32,24 +41,16 @@
       background-color: #f3dfe2;
       border: 10px solid #ffc0cb;
       height: 50vh;
-      min-width: 100%;
     }
     .question,
     .answers{
       margin: 1vh 0;
     }
     .question{
-      min-width: 95vw;
       text-align: center;
     }
     .answers{
       padding: 0 0 0 15vw;
-      width: 80vw;
-    }
-    .buttons{
-      height: 10vh;
-      padding: 2vh 2vw;
-      text-align: center;
     }
     .next{
       background-color: #6699ff;
