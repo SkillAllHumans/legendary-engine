@@ -10,6 +10,7 @@
   </script>
 
   <style>
+    /*element styles*/
     body,
     html{
       box-sizing: border-box;
@@ -28,12 +29,14 @@
     }
     button{
       display: block;
+      font-size: 20px;
       height: 10vh;
       margin: 0 auto;
       padding: 2vh 2vw;
       text-align: center;
     }
-    
+
+    /*classes*/
     .center{
       text-align: center;
     }
@@ -166,14 +169,17 @@
           $(".main").html("<h2 class='center'>"+resultText+"</h2><br/><p class='center'><button class='again' onClick='location.reload();'>Play again.</button></p>");
         }//end returnUserResults
 
+        function selectRadio(buttonToChoose) {
+          $("input[type='radio']").prop("checked", false);
+          $(buttonToChoose).prop("checked", true);
+        }
       //Event listeners
       $(".next").on("click", function(){
         if (questions.length > 0) {
           //eval
           evaluateAnswer();
           //deselect everything, then select first radio
-          $("input[type='radio']").prop("checked", false);
-          $("input[type='radio']:first").prop("checked", true);
+          selectRadio("input[type='radio']:first");
           //keep going with quiz
           serveQuestion();
         } else {
@@ -184,9 +190,30 @@
         }
       });
 
+      //add key navigation
+      $("body").keypress(function(e){
+        var key = e.which;
+        if(key == 13){ //enter
+          $("button").click();
+          return false;
+        } else if(key == 49 || key == 97 || key == 65){ //1/numpad/a&A
+          selectRadio("#a1");
+          return false;
+        } else if(key == 50 || key == 98 || key == 66){ //2/numpad/b&B
+          selectRadio("#a2");
+          return false;
+        } else if(key == 51 || key == 99 || key == 67){ //3/numpad/c&C
+          selectRadio("#a3");
+          return false;
+        } else if(key == 52 || key == 100 || key == 68){ //4/numpad/d&D
+          selectRadio("#a4");
+          return false; 
+        }
+      }); 
+
       //fire on load
-      $("input[type='radio']:first").prop("checked", true);
       serveQuestion();
+      selectRadio("input[type='radio']:first");
 
     });// end document.addEventListener("DOMContentLoaded", function()
 
