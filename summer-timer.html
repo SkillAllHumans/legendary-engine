@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Summer Timer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous">
+  </script>
+
+  <style>
+    /*elements*/
+    body, html{
+      margin: 2vh 10vw;
+    }
+
+    /*classes*/
+  </style>
+
+</head>
+<body>
+
+  <header> 
+    <h1 class="">Summer Timer (Northern Hemisphere)</h1>
+    <h2>Summer is the worst season. This page shows you when summer is or will be and when the wonder of autumn will come to the rescue.</h2>
+  </header>
+
+  <div class="main">
+    <h3></h3>
+    <p id="results">Your system time is out of range for this page.</p>
+  </div><!-- end main -->
+
+
+  <script>
+
+    //act on page load
+    document.addEventListener("DOMContentLoaded", function() {
+      //make vars
+      let userTime = new Date();
+      let thisYear = userTime.getFullYear();
+
+      //functions
+      function doDateCalculations(){
+        //do calcs
+        let startOfYear = Date.parse(thisYear, 0, 0);
+        let dayOfYear = (userTime - startOfYear) / (60 * 60 * 24 * 1000);
+        //next
+        solsticesRetrieval(startOfYear, dayOfYear);
+      }
+
+      function solsticesRetrieval(startOfYear, dayOfYear){
+        //taken from https://www.timeanddate.com/calendar/seasons.html
+        let soltices = [
+          [2019, "20 March", "21 June", "23 September", "21 December"],
+          [2020, "19 March", "20 June", "22 September", "21 December"],
+          [2021, "20 March", "20 June", "22 September", "21 December"],
+          [2022, "20 March", "21 June", "22 September", "21 December"],
+          [2023, "20 March", "21 June", "23 September", "21 December"],
+          [2024, "19 March", "20 June", "22 September", "21 December"],
+          [2025, "20 March", "20 June", "22 September", "21 December"],
+          [2026, "20 March", "21 June", "22 September", "21 December"],
+          [2027, "20 March", "21 June", "23 September", "21 December"],
+          [2028, "19 March", "20 June", "22 September", "21 December"],
+          [2029, "20 March", "20 June", "22 September", "21 December"],
+          [2030, "20 March", "21 June", "22 September", "21 December"],
+          [2031, "20 March", "21 June", "23 September", "21 December"],
+          [2032, "19 March", "20 June", "22 September", "21 December"],
+          [2033, "20 March", "20 June", "22 September", "21 December"],
+          [2034, "20 March", "21 June", "22 September", "21 December"],
+          [2035, "20 March", "21 June", "23 September", "21 December"],
+          [2036, "19 March", "20 June", "22 September", "21 December"],
+          [2037, "20 March", "20 June", "22 September", "21 December"],
+          [2038, "20 March", "21 June", "22 September", "21 December"],
+          [2039, "20 March", "21 June", "22 September", "21 December"],
+          [2040, "19 March", "20 June", "22 September", "21 December"],
+          [2041, "20 March", "20 June", "22 September", "21 December"],
+          [2042, "20 March", "21 June", "22 September", "21 December"],
+          [2043, "20 March", "21 June", "22 September", "21 December"],
+          [2044, "19 March", "20 June", "22 September", "21 December"],
+          [2045, "20 March", "20 June", "22 September", "21 December"],
+          [2046, "20 March", "21 June", "22 September", "21 December"],
+          [2047, "20 March", "21 June", "22 September", "21 December"],
+          [2048, "19 March", "20 June", "22 September", "21 December"],
+          [2049, "20 March", "20 June", "22 September", "21 December"],
+          [2050, "20 March", "20 June", "22 September", "21 December"],
+          [2051, "20 March", "21 June", "22 September", "21 December"],
+          [2052, "19 March", "20 June", "22 September", "20 December"],
+          [2053, "19 March", "20 June", "22 September", "21 December"],
+          [2054, "20 March", "20 June", "22 September", "21 December"],
+          [2055, "20 March", "21 June", "22 September", "21 December"],
+          [2056, "19 March", "20 June", "22 September", "20 December"],
+          [2057, "19 March", "20 June", "22 September", "21 December"],
+          [2058, "20 March", "20 June", "22 September", "21 December"],
+          [2059, "20 March", "21 June", "22 September", "21 December"],
+          [2060, "19 March", "20 June", "22 September", "20 December"],
+          [2061, "19 March", "20 June", "22 September", "21 December"],
+          [2062, "20 March", "20 June", "22 September", "21 December"],
+          [2063, "20 March", "21 June", "22 September", "21 December"],
+          [2064, "19 March", "20 June", "22 September", "20 December"],
+          [2065, "19 March", "20 June", "22 September", "21 December"],
+          [2066, "20 March", "20 June", "22 September", "21 December"],
+          [2067, "20 March", "21 June", "22 September", "21 December"],
+          [2068, "19 March", "20 June", "22 September", "20 December"],
+          [2069, "19 March", "20 June", "22 September", "21 December"],
+          [2070, "20 March", "20 June", "22 September", "21 December"],
+          [2071, "20 March", "21 June", "22 September", "21 December"],
+          [2072, "19 March", "20 June", "21 September", "20 December"],
+          [2073, "19 March", "20 June", "22 September", "21 December"],
+          [2074, "20 March", "20 June", "22 September", "21 December"],
+          [2075, "20 March", "21 June", "22 September", "21 December"],
+          [2076, "19 March", "20 June", "21 September", "20 December"],
+          [2077, "19 March", "20 June", "22 September", "21 December"],
+          [2078, "20 March", "20 June", "22 September", "21 December"],
+          [2079, "20 March", "20 June", "22 September", "21 December"],
+          [2080, "19 March", "20 June", "21 September", "20 December"],
+          [2081, "19 March", "20 June", "22 September", "21 December"],
+          [2082, "20 March", "20 June", "22 September", "21 December"],
+          [2083, "20 March", "20 June", "22 September", "21 December"],
+          [2084, "19 March", "20 June", "21 September", "20 December"],
+          [2085, "19 March", "20 June", "22 September", "20 December"],
+          [2086, "19 March", "20 June", "22 September", "21 December"],
+          [2087, "20 March", "20 June", "22 September", "21 December"],
+          [2088, "19 March", "20 June", "21 September", "20 December"],
+          [2089, "19 March", "20 June", "22 September", "20 December"],
+          [2090, "19 March", "20 June", "22 September", "21 December"],
+          [2091, "20 March", "20 June", "22 September", "21 December"],
+          [2092, "19 March", "20 June", "21 September", "20 December"],
+          [2093, "19 March", "20 June", "22 September", "20 December"],
+          [2094, "19 March", "20 June", "22 September", "21 December"],
+          [2095, "20 March", "20 June", "22 September", "21 December"],
+          [2096, "19 March", "20 June", "21 September", "20 December"],
+          [2097, "19 March", "20 June", "22 September", "20 December"],
+          [2098, "19 March", "20 June", "22 September", "21 December"],
+          [2099, "20 March", "20 June", "22 September", "21 December"]
+        ];
+        for (var i = 0; i < soltices.length; i++) {
+          if (soltices[i][0] == thisYear){
+            parseSoltice(startOfYear, dayOfYear, soltices[i]);
+          }          
+        }
+      }
+
+      function parseSoltice(startOfYear, dayOfYear, yearArray){
+        let spring = ( Date.parse(yearArray[1] + ", " + thisYear) - startOfYear ) / (3600 * 24 * 1000);
+        let summer = ( Date.parse(yearArray[2] + ", " + thisYear) - startOfYear ) / (3600 * 24 * 1000);
+        let autumn = ( Date.parse(yearArray[3] + ", " + thisYear) - startOfYear ) / (3600 * 24 * 1000);
+        let winter = ( Date.parse(yearArray[4] + ", " + thisYear) - startOfYear ) / (3600 * 24 * 1000);
+
+        //calculate and convert
+        let springDays = (spring - dayOfYear).toFixed(0);
+        let summerDays = (summer - dayOfYear).toFixed(0);
+        let autumnDays = (autumn - dayOfYear).toFixed(0);
+        let winterDays = (winter - dayOfYear).toFixed(0);
+
+        if (dayOfYear < spring){
+          $("#results").text(
+            "You're in winter with spring starting in about " + springDays + " days (" + yearArray[1]
+            + "). Sadly, summer starts in about " + summerDays  + " days (" + yearArray[2]
+            + "). The good news is that autumn is about " + autumnDays + " days away (" + yearArray[3]
+            + ") and next winter is about " + winterDays + " days away (" + yearArray[4]
+            + ").");
+        } else if (dayOfYear < summer && dayOfYear > spring){
+          $("#results").text("You're in spring facing summer in about " + summerDays  + " days (" + yearArray[2]
+            + "). The good news is that autumn is about " + autumnDays + " days away (" + yearArray[3]
+            + ") and winter is about " + winterDays + " days away (" + yearArray[4]
+            + ").");
+        } else if (dayOfYear < autumn && dayOfYear > summer){
+          $("#results").text("You're currently in summer, sorry!"
+            + " The good news is that autumn is about " + autumnDays + " days away (" + yearArray[3]
+            + ") and winter is about " + winterDays + " days away (" + yearArray[4]
+            + ").");
+        } else if (dayOfYear < winter && dayOfYear > autumn){
+          $("#results").text("YAY IT'S AUTUMN! Winter is about " + winterDays + " days away (" + yearArray[4] +").");
+        } else {
+          $("#results").text("You're in winter, waiting for the year to change.");
+        }
+      }
+      //Event listeners
+
+      //fire on load
+        //post date
+        $("h3").text("Your system time is " + userTime); 
+        //only bother with variables and calculations if they're in range
+        if (thisYear >= 2019 && thisYear <= 2099){
+          doDateCalculations();
+        }
+
+    });// end document.addEventListener("DOMContentLoaded", function()
+
+  </script>
+</body>
+</html>
